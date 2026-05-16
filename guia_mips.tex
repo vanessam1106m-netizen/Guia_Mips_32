@@ -1,0 +1,182 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel} % Para que los títulos automáticos estén en español
+\usepackage{geometry}
+\geometry{margin=2.5cm}    % Márgenes perfectos de 2.5 cm en toda la hoja
+\usepackage{booktabs}      % Por si queremos hacer una tabla limpia después
+\title{\textbf{Resumen Analítico del Simulador MiPS 32}}
+\author{\textbf{Estudiante:} Vanessa Moreno \\ \textbf{Profesor:} José Canache}
+\date{\today} % Esto pone la fecha actual automáticamente en español
+
+\begin{document}
+
+\maketitle % Esto dibuja el título, tu nombre y la fecha que configuramos arriba
+\newpage   % Salto de página para que el contenido empiece limpio en la siguiente hoja
+
+\section{Introducción a MiPS 32}
+
+\subsection{MIPS 32 (La Arquitectura)}
+
+Es el diseño o plano estructural de un tipo de procesador que trabaja con bloques de información de \textbf{32 bits} (cadenas de 32 unos y ceros). Se caracteriza por ser de tipo \textbf{RISC} (Conjunto de Instrucciones Reducido), lo que significa que utiliza un idioma de comandos muy corto, simple y rápido para ejecutar tareas.
+
+\subsection{Lenguaje Ensamblador (El Idioma)}
+
+Es el lenguaje de programación de más bajo nivel que existe antes de llegar al código máquina (los unos y ceros). Es un idioma puente que nos permite darle órdenes directas al hardware de la computadora utilizando palabras cortas en inglés (como \verb|add| para sumar o \verb|sub| para restablecer/restar) en lugar de escribir números binarios abstractos.
+
+\subsection{Registro (La Memoria Interna)}
+
+Es un espacio de almacenamiento ultra rápido pero sumamente pequeño que se encuentra \textbf{dentro} del propio procesador. MIPS 32 tiene exactamente 32 de estos registros generales (nombrados con un signo de dólar, como \verb|\$t0|o \verb|\$s0|). Sirven como "casillas" temporales para guardar los números exactos con los que el procesador está haciendo un cálculo en ese instante.
+
+\subsection{Compilar / Ensamblar (La Traducción)}
+
+Es el proceso automático que agarra el código de texto que tú escribes (ya sea el código MIPS 32 o el mismísimo código de LaTeX en Overleaf) y lo \textbf{traduce} por completo a un formato que el sistema final pueda entender y ejecutar (ya sea transformarlo a código máquina binaria para el procesador, o transformarlo a un archivo PDF estructurado).
+
+
+\section{Tabla de Registros MIPS 32}
+
+\begin{tabular}{lll}
+\textbf{Número de reg.} & \textbf{Nombre alt.} & \textbf{Descripción} \\ \hline
+0 & \$zero & El valor constante cero ($0$). \\\hline
+1 & \$at & Reservado para el ensamblador. \\\hline
+2--3 & \$v0 -- \$v1 & Valores de resultados de funciones. \\\hline
+4--7 & \$a0 -- \$a3 & Argumentos para las subrutinas. \\\hline
+8--15 & \$t0 -- \$t7 & Temporales (no se conservan). \\\hline
+16--23 & \$s0 -- \$s7 & Valores guardados (se conservan). \\\hline
+24--25 & \$t8 -- \$t9 & Temporales adicionales. \\\hline
+26--27 & \$k0 -- \$k1 & Reservados para el sistema/controlador. \\\hline
+28 & \$gp & Puntero global (datos estáticos). \\\hline
+29 & \$sp & Puntero de pila (stack pointer). \\\hline
+30 & \$s8 / \$fp & Valor guardado / puntero de marco. \\\hline
+31 & \$ra & Dirección de retorno de la función. \\\hline
+\end{tabular}
+
+\section{Explicación de Operadores Básicos}
+A continuación se detallan los operadores fundamentales de MIPS 32 con su sintaxis estricta para el uso en la pizarra:
+
+\subsection{\texttt{add} (Sumar registros)}
+Separa los operandos de derecha a izquierda. Toma el valor de dos registros, los suma y guarda el resultado en un tercer registro de destino.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{add [Destino], [Operando 1], [Operando 2]}
+    \item \textbf{Ejemplo escrito:} \texttt{add \$t0, \$t1, \$t2} $\rightarrow$ Suma el contenido de \texttt{\$t1} más \texttt{\$t2} y el resultado lo almacena en \texttt{\$t0}.
+\end{itemize}
+
+\subsection{\texttt{sub} (Restar registros)}
+Funciona exactamente igual que la suma, pero realiza una resta matemática. El orden de los factores importa.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{sub [Destino], [Minuendo], [Sustraendo]}
+    \item \textbf{Ejemplo escrito:} \texttt{sub \$t0, \$t1, \$t2} $\rightarrow$ Resta \texttt{\$t1} menos \texttt{\$t2} y guarda la diferencia en \texttt{\$t0}.
+\end{itemize}
+
+\subsection{\texttt{addi} (Sumar un número directo / Inmediato)}
+Se utiliza cuando no quieres sumar dos registros entre sí, sino que quieres sumarle un número entero constante (un inmediato) a un registro.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{addi [Destino], [Registro Base], [Número Entero]}
+    \item \textbf{Ejemplo escrito:} \texttt{addi \$t0, \$t1, 5} $\rightarrow$ Toma el valor de \texttt{\$t1}, le suma el número 5 directamente y guarda el total en \texttt{\$t0}.
+\end{itemize}
+
+\subsection{\texttt{lw} (Cargar desde la RAM / Load Word)}
+Mueve la información desde la memoria RAM hacia un registro del procesador. Se usa para "traer" datos que guardaste previamente.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{lw [Destino], [Desplazamiento]([Registro Puntero])}
+    \item \textbf{Ejemplo escrito:} \texttt{lw \$t0, 0(\$s0)} $\rightarrow$ Va a la dirección de memoria de la RAM que indica \texttt{\$s0} y copia ese dato dentro de \texttt{\$t0}.
+\end{itemize}
+
+\subsection{\texttt{sw} (Guardar en la RAM / Store Word)}
+Es el proceso inverso a \texttt{lw}. Agarra el resultado de un cálculo que tienes en un registro del procesador y lo "manda a guardar" de forma segura en la memoria RAM.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{sw [Registro con el Dato], [Desplazamiento]([Registro Puntero])}
+    \item \textbf{Ejemplo escrito:} \texttt{sw \$t0, 0(\$s0)} $\rightarrow$ Toma el número que está en \texttt{\$t0} y lo mete en la dirección de la memoria RAM señalada por \texttt{\$s0}.
+\end{itemize}
+
+\subsection{\texttt{beq} (Saltar si son iguales / Branch on Equal)}
+Compara dos registros. Si sus valores son exactamente iguales, el flujo del programa salta a una etiqueta específica.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{beq [Reg 1], [Reg 2], [Etiqueta]}
+    \item \textbf{Ejemplo escrito:} \texttt{beq \$t0, \$t1, Sino} $\rightarrow$ Si \texttt{\$t0 == \$t1}, salta a la línea \texttt{Sino:}.
+\end{itemize}
+
+\subsection{\texttt{bne} (Saltar si NO son iguales / Branch on Not Equal)}
+Compara dos registros. Si sus valores son diferentes, realiza el salto a la etiqueta indicada.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{bne [Reg 1], [Reg 2], [Etiqueta]}
+    \item \textbf{Ejemplo escrito:} \texttt{bne \$t0, \$t1, Repetir} $\rightarrow$ Si \texttt{\$t0 != \$t1}, salta a la línea \texttt{Repetir:}.
+\end{itemize}
+
+\subsection{\texttt{slt} (Establecer si es menor / Set on Less Than)}
+Compara si el primer registro es menor que el segundo. Si es verdad, activa el registro de destino poniéndolo en 1; si es falso, lo pone en 0.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{slt [Destino], [Reg 1], [Reg 2]}
+    \item \textbf{Ejemplo escrito:} \texttt{slt \$t0, \$s0, \$s1} $\rightarrow$ Si \texttt{\$s0 < \$s1}, entonces \texttt{\$t0} valdrá 1. De lo contrario, valdrá 0.
+\end{itemize}
+
+\subsection{\texttt{slti} (Establecer si es menor que un número directo)}
+Funciona igual que el \texttt{slt}, pero compara un registro contra un número entero constante (inmediato).
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{slti [Destino], [Reg 1], [Número]}
+    \item \textbf{Ejemplo escrito:} \texttt{slti \$t0, \$s0, 18} $\rightarrow$ Si \texttt{\$s0 < 18}, \texttt{\$t0} se vuelve 1. Si no, se vuelve 0.
+\end{itemize}
+
+\subsection{\texttt{j} (Salto incondicional / Jump)}
+Fuerza al procesador a saltar directamente a una etiqueta sin hacer ninguna comparación previa.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{j [Etiqueta]}
+    \item \textbf{Ejemplo escrito:} \texttt{j FinPrograma} $\rightarrow$ Salta directamente a la sección \texttt{FinPrograma:}.
+\end{itemize}
+
+\subsection{\texttt{sll} (Desplazamiento lógico a la izquierda / Shift Left Logical)}
+Desplaza los bits de un registro a la izquierda. Mover los bits $N$ posiciones equivale matemáticamente a multiplicar el número por $2^N$.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{sll [Destino], [Reg Base], [Cantidad de bits]}
+    \item \textbf{Ejemplo escrito:} \texttt{sll \$t0, \$s0, 2} $\rightarrow$ Desplaza los bits de \texttt{\$s0} dos posiciones a la izquierda (lo multiplica por 4) y guarda el resultado en \texttt{\$t0}.
+\end{itemize}
+
+\subsection{\texttt{li} (Cargar valor inmediato / Load Immediate)}
+Es el comando más sencillo para "asignar" un valor a una variable. Mete un número directo dentro de un cajón de memoria.
+\begin{itemize}
+    \item \textbf{Estructura:} \texttt{li [Destino], [Número Entero]}
+    \item \textbf{Ejemplo escrito:} \texttt{li \$t0, 10} $\rightarrow$ Borra lo que haya en \texttt{\$t0} y le mete el número 10 directamente.
+\end{itemize}
+
+\section*{Estructura General de un Programa}
+Un programa en MIPS 32 se escribe en archivos de texto plano con la extensión \texttt{.s} (requerida por simuladores como SPIM o MARS) y se divide rígidamente en dos secciones principales:
+
+\subsection*{1. Declaración de Datos (\texttt{.data})}
+Esta sección está identificada con la directiva \texttt{.data}. Aquí se reservan y declaran los nombres de las variables que utilizará el programa. El espacio de almacenamiento para estos datos se asigna directamente en la memoria principal (RAM).
+
+\subsection*{2. Código del Programa (\texttt{.text})}
+Esta sección se identifica con la directiva \texttt{.text} y contiene las instrucciones físicas que ejecutará el procesador. 
+\begin{itemize}
+    \item \textbf{Punto de partida:} La ejecución comienza obligatoriamente en la etiqueta llamada \texttt{principal:} (o \texttt{main:}).
+    \item \textbf{Punto final:} El programa no se detiene solo; al finalizar la lógica, se debe usar explícitamente la llamada al sistema \texttt{exit} para cerrarlo de forma segura.
+\end{itemize}
+
+\subsection*{3. Comentarios}
+Para documentar el código en la pizarra o en el editor, se utiliza el símbolo \texttt{\#}. Todo lo que se escriba después de este símbolo en la misma línea será ignorado por el ensamblador.
+
+---
+
+\subsection*{Plantilla Base de un Programa en Ensamblador}
+A continuación se presenta el esquema básico y obligatorio que debe seguir cualquier programa escrito en MIPS 32:
+
+\begin{verbatim}
+# =========================================================
+# Nombre del programa: Plantilla.s
+# Descripción: Esquema básico de un programa en MIPS 32
+# =========================================================
+
+          .data      # Sección de datos: las variables van aquí
+                     # (Ejemplo: mensajes de texto, arreglos, etc.)
+                     
+          .text      # Sección de código: las instrucciones van aquí
+          
+principal:           # Indica el inicio exacto de la ejecución 
+                     # Aquí va tu código (add, sub, lw, etc.)
+                     
+                     # Fin del programa:
+                     # Se debe invocar la llamada al sistema 'exit'
+                     
+# Nota: Dejar siempre una línea en blanco al final del archivo.
+\end{verbatim}
+
+
+\end{document}
