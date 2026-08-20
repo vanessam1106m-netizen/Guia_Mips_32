@@ -1,0 +1,158 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel} % Para que los títulos automáticos estén en español
+\usepackage{geometry}
+\geometry{margin=2.5cm}    % Márgenes perfectos de 2.5 cm en toda la hoja
+\usepackage{booktabs}      % Por si queremos hacer una tabla limpia después
+\title{\textbf{Estación de audio digital profesional \\ (low - latency Daw)}}
+\author{\textbf{Estudiante:} Genesis Cabello. C.I: 30.367.386.\\\textbf{Estudiante:} Christian Baez. C.I:31.473.355\\ \textbf{Profesor:} José Canache}
+
+\date{Presupuesto asignado: 3000\$ \\\today} % Esto pone la fecha actual automáticamente en español
+
+
+\begin{document}
+
+\maketitle
+
+
+El diseño de una computadora no consiste en elegir componentes potentes al azar, sino en optimizar el hardware para resolver un problema específico. Este proyecto aborda el diseño arquitectónico de una estación de trabajo para Audio Digital Profesional (DAW), cuyo reto principal es la eliminación de la latencia y el procesamiento de datos en tiempo real.
+
+A nivel de computación, la producción musical es altamente exigente, ya que el sistema debe procesar flujos continuos de datos síncronos sin perder paquetes de información. Por ello, el desarrollo de este informe se centrará en analizar detalladamente cada uno de los componentes de hardware seleccionados, detallando su función específica en la arquitectura del sistema y cómo su correcta integración permite optimizar el ciclo de trabajo del procesador para cumplir con las exigencias de este entorno profesional.
+
+\section{Componenetes internos}
+
+\subsection{CPU:}
+\begin{itemize}
+    \item \textbf{Componentes:} Procesador de escritorio Intel® Core™ i9-14900KF
+ \href{https://www.amazon.com/-/es/Procesador-escritorio-Intel%C2%AE-i9-14900KF-n%C3%BAcleos/dp/B0CHBJXG7G/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_3/143-1803879-4455257?pd_rd_w=3oJ84&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=W7BHTGWTJCY310H7DC05&pd_rd_wg=bQCUx&pd_rd_r=a066060c-c3db-436d-8833-5dd495200388&pd_rd_i=B0CHBJXG7G&th=1}{Ver componente en Amazon}
+    \item \textbf{Especificaciones:} 24 núcleos físicos (8 núcleos de rendimiento / 16 núcleos eficientes)/ 32 hilos de procesamiento/ 6.0 GHz/ Memoria cache de 36 MB L3
+    \item \textbf{Precio Estimado:} 520\$
+    \item \textbf{Justificación:} Se utilizará como el núcleo de cálculo en tiempo real del sistema. Su alta frecuencia de 6.0 GHz permite procesar cadenas de efectos secuenciales con latencia cero, mientras que sus 32 hilos distribuyen eficientemente decenas de pistas en paralelo sin retrasos.
+\end{itemize}
+\subsection{Placa base (Motherboard):}
+
+\begin{itemize}
+    \item \textbf{Componentes:} GIGABYTE Z790 AORUS ELITE AX 
+    \href{https://www.amazon.com/-/es/GIGABYTE-Z790-AX-Q-Flash-EZ-Latch/dp/B0BH9DXY38/ref=sr_1_1?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2HDATKJYEV36G&dib=eyJ2IjoiMSJ9.dHJ2hc306MKX1EWBqwtBPY04knKXazo2OL0_nY9YKt6TeaEGxRyV1Iv5Rf3Ojn8Hlgvw2UzWWLM2GDNSdQWD7AsaQ-dwEoHlWpzwyc_NKo3gw_Z4EUFMh0hP0EMExHeCnIEZoSPhVPgb2sIG8jSRmheZV7ZBU4K9DsM-qQbgFxqFRHVrODQ6U9gYlDx3WBQQfMKL9oKMKjVwOD3glCbTjcbaOM6rYwKKdCnSX2iSzfQ.-kxUCIsFUDGV9O-CS34PvWimtieduNzCe5p3V095QHo&dib_tag=se&keywords=Chipset%2BIntel%2BZ790%2B(Socket%2BLGA1700).%2F%2BSoporte%2Bpara%2Bmemoria%2BRAM%2BDDR5%2Ben%2Bdoble%2Bcanal%2B(Dual%2BChannel).%2F%2B5%2Branuras%2Bpara%2Balmacenamiento%2BSSD%2BM.2%2B(compatibles%2Bcon%2BPCIe%2B5.0%2By%2B4.0).%2F%2BPuertos%2Btraseros%2BUSB-C%2Bde%2Balta%2Bvelocidad%2By%2Bcompatibilidad%2Bcon%2Btarjetas%2Bde%2Bexpansi%C2%B4on%2BThunderbolt%2B4.&nsdOptOutParam=true&qid=1779421296&sprefix=chipset%2Bintel%2Bz790%2Bsocket%2Blga1700%2B.%2F%2Bsoporte%2Bpara%2Bmemoria%2Bram%2Bddr5%2Ben%2Bdoble%2Bcanal%2Bdual%2Bchannel%2B.%2F%2B5%2Branuras%2Bpara%2Balmacenamiento%2Bssd%2Bm.2%2Bcompatibles%2Bcon%2Bpcie%2B5.0%2By%2B4.0%2B.%2F%2Bpuertos%2Btraseros%2Busb-c%2Bde%2Balta%2Bvelocidad%2By%2Bcompatibilidad%2Bcon%2Btarjetas%2Bde%2Bexpansi%2Bon%2Bthunderbolt%2B4.%2Caps%2C440&sr=8-1&th=1}{Ver componente en Amazon}
+    \item \textbf{Especificaciones:} (LGA 1700/ Intel Z790/ ATX/ DDR5/Quad M.2/PCIe 5.0/USB 3.2 Gen2X2 Tipo C/Intel WiFi 6E/LAN de 2.5GbE/Q-Flash Plus/PCIe EZ-Latch)
+    \item \textbf{Precio Estimado:} 190\$
+    \item \textbf{Justificación:} Se utilizará como el sistema de interconexión principal para coordinar el flujo de datos. Su gestión de líneas PCIe 5.0 y Quad M.2 permite que los discos SSD y la interfaz de audio tengan acceso directo a la memoria (DMA), optimizando las peticiones de interrupción (IRQs) para evitar microcortes en tiempo real.
+\end{itemize}
+
+
+
+\subsection{Memoria RAM (Módulos DDR5):}
+
+\begin{itemize}
+    \item \textbf{Componentes:} CORSAIR Vengeance DDR5
+    \href{https://www.amazon.es/CORSAIR-Vengeance-6000MHz-Compatible-Ordenadores/dp/B0C5M7J967?th=1}{Ver componente en Amazon}
+    \item \textbf{Especificaciones:} Capacidad total de 64 GB distribuidos en dos módulos de 32 GB (Arquitectura Dual Channel )./ Velocidad de frecuencia de 6000 MT/s./ Latencia física CAS de CL30 (Ultra baja respuesta).
+    \item \textbf{Precio Estimado:} 1012\$
+    \item \textbf{Justificación:} Se utilizará como almacenamiento temporal de alta velocidad para cargar librerías de sonido pesado. Su configuración en Dual Channel duplica el ancho de banda del bus de datos, mientras que su baja latencia CL30 minimiza los ciclos de espera ( wait States ) del procesador para un acceso casi instantáneo.
+\end{itemize}
+
+\subsection{Unidades de almacenamiento (Discos SSD NVMe M.2)}
+
+\begin{itemize}
+    \item \textbf{Componentes:} Disco Duro 
+    \href{https://sigmatiendas.com/es-ve/products/ssd-interno-para-juegos-crucial-t500-2tb-gen4-nvme-m-2-hasta-7400-mb-s-compatible-con-laptop-y-escritorio-1-mo-adob}{Ver en Sigma Tiendas}
+    \item \textbf{Especificaciones:} Capacidad de almacenamiento de 2 Terabytes./ Interfaz de conexión NVMe M.2 a través del bus PCIe 4.0 x4. /Velocidad de lectura secuencial de hasta 7400 MB/s./ Memoria caché DRAM integrada de 2 GB LPDDR4. 
+    \item \textbf{Precio Estimado:} 224\$
+    \item \textbf{Justificación:} Se utilizará para cargar el sistema operativo, el DAW y las librerías de audio. Al usar el protocolo NVMe con Acceso Directo a Memoria ( DMA ), las muestras de sonido se transfieren directo a la RAM sin saturar al CPU, garantizando que cientos de pistas paralelas se reproduzcan de forma síncrona y sin cuellos de botella.
+\end{itemize}
+
+\subsection{Tarjeta Gráfica (GPU)}
+\begin{itemize}
+    \item \textbf{Componentes:} ASRock Tarjeta gráfica Radeon RX 9060 XT
+    \href{https://www.amazon.com/-/es/ASRock-9060-Challenger-16GB-Enfriamiento/dp/B0F8B59WP7/ref=sr_1_2?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3MRX2PWBHWSTE&dib=eyJ2IjoiMSJ9.dWwJ0w8hBfD_UKsGjgSfR7ii3aFPDuf4RMvcGBpeqGLZouyWBs795HD5axzBCLQ0tb7mKy_-kyv2WrsIuvIutHGfhmTQ7NAWpvTaShTxhByc0J9oDp7tHBuSaosqrWws2AGPGw411QlA2ujHkKSEgnBmoLjYtn2SZardzgxcXJbUhy0ThVwyLTQ19oe3DSIOSDWTvEH91ygDWsCjHZeqfBQVFdt2B9e1xz8z6g9qGc8.7FZE3GXLdYsppTklz0sU-qxvAhr_-mTsQ6SRF57tte8&dib_tag=se&keywords=tarjeta%2Bgr%C3%A1fica%2B16%2BGB%2C&qid=1779562625&sprefix=tarjeta%2Bgr%C3%A1fica%2B16%2Bgb%2C%2Caps%2C336&sr=8-2&th=1}{Ver en Amazon}
+    \item \textbf{Especificaciones:} 8 GB, RX 590 2304SP de 256 bits, PCIe 3.0 x16, entrada de 8 pines DirectX 12 GPU , salida DP*3+HDMI, pantalla 1080P
+    \item \textbf{Precio Estimado:} 450\$
+    \item \textbf{Justificación:} Se utilizará para renderizar las interfaces gráficas complejas de los plugins de audio modernos (analizadores de espectro y medidores en tiempo real). Al delegar todo el procesamiento visual a los núcleos dedicados de la GPU, se libera por completo al CPU de tareas de video, permitiéndole concentrar todos sus ciclos de instrucción exclusivamente en los algoritmos de audio y en la latencia cero.
+\end{itemize}
+
+\subsection{Sistema de Enfriamiento (Cooler del CPU)}
+
+\begin{itemize}
+    \item \textbf{Componentes:} CORSAIR Nautilus 360 RS ARGB
+    \href{https://www.amazon.com/-/es/CORSAIR-Nautilus-ARGB-Enfriador-l%C3%ADquido/dp/B0DF7C4YPQ/ref=sr_1_13?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=H2XHFS3T6ZCN&dib=eyJ2IjoiMSJ9.GUN0IW54Z3-ZVJ-sg0S1IGRzjwCIVzeB_guRt6enlJa95-xvR_9FfXLXfDmIGMDIsH5_m-2B1jbuXV8ADLEWNRlaoDPylFTUahPizVUaenP-J0n3ZSxvDUc0vHJERZss8AIq_HeOVzhiDF85dt9Tb1RjZ_HNE5-kwSrxIeDQw-B5jwWx8PT7oEYuXIwwk3VLjbgz8UMe5uGfcsEJAkUqNloUgMyUeG83uBN2K3JMzVA.RKJhb9uHN1xWaqWBrHsnr0ZRGOVvKA55MCvfg8ipmk0&dib_tag=se&keywords=sistema%2Bde%2Benfriamiento%2Bpara%2Bpc%2BRadiador%2Bde%2Baluminio%2Bde%2B360mm.%2B%2FTres%2Bventiladores%2BPWM%2Bde%2B120%2Bmm%2Bde%2Blevitaci%C3%B3n%2Bmagn%C3%A9tica.%2F%2BBloque%2Bde%2Bcobre%2Bde%2Balta%2Bconductividad%2Bt%C3%A9rmica.&nsdOptOutParam=true&qid=1779457580&sprefix=sistema%2Bde%2Benfriamiento%2Bpara%2Bpc%2Bradiador%2Bde%2Baluminio%2Bde%2B360mm.%2B%2Ftres%2Bventiladores%2Bpwm%2Bde%2B120%2Bmm%2Bde%2Blevitaci%C3%B3n%2Bmagn%C3%A9tica.%2F%2Bbloque%2Bde%2Bcobre%2Bde%2Balta%2Bconductividad%2Bt%C3%A9rmica.%2Caps%2C543&sr=8-13&th=1}{Ver en Amazon}
+    \item \textbf{Especificaciones:} Radiador de aluminio de 360mm. /Tres ventiladores PWM de 120 mm de levitación magnética./ Bloque de cobre de alta conductividad térmica.
+    \item \textbf{Precio Estimado:} 100\$
+    \item \textbf{Justificación:} Se utilizará para disipar el calor del i9-14900K bajo cargas pesadas. Al mantener la temperatura óptima, se evita la reducción automática de frecuencia por calor ( throttling térmico ), asegurando que el procesador rinda al máximo de forma estable y síncrona sin caídas de rendimiento.
+\end{itemize}
+
+\subsection{Fuente de Alimentación (PSU)}
+
+\begin{itemize}
+    \item \textbf{Componentes:} MSI MAG A850GL PCIE5
+    \href{https://www.amazon.com/-/es/MSI-A850GL-alimentaci%C3%B3n-compacta-completamente/dp/B0CB9MSJ5N/ref=sr_1_5?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=JDG38I52W8JB&dib=eyJ2IjoiMSJ9.p-Aq6eVB7Oe8KG_DmzSh5ysgrMeDgEJm_W_rz3ANKZ8Rv484Cp-Q9EFmFkdw0l_yhJVbei_k-weHiJ8x9-n5Z-1EUMm-uzh6TxKQPYuvnqWFW38HknwavU_mf08HKfrGLH_DuK4-JjavctjJQbC_5P1piHbPRGV3AHDE-aMBwNlcqvZDLEodQLEocMq4pEvYlCzxJHMTz82FEfDI1RFNsC_kfWDqLEUwu7IPzxHvk1g.SuGIZDf1YhiT0plsaYtV69ID0hUGaULP87Z7k7DJ5e4&dib_tag=se&keywords=fuente%2Bde%2Balimentacion%2BPotencia%2Bde%2B850%2BVatios%2Bcontinuos.%2F%2BCertificaci%C3%B3n%2Bde%2Beficiencia%2B80%2BPlus%2BGold.%2F%2BDise%C3%B1o%2B100%5C%25%2Bmodular.&nsdOptOutParam=true&qid=1779459594&sprefix=fuente%2Bde%2Balimentacion%2Bpotencia%2Bde%2B850%2Bvatios%2Bcontinuos.%2F%2Bcertificaci%C3%B3n%2Bde%2Beficiencia%2B80%2Bplus%2Bgold.%2F%2Bdise%C3%B1o%2B100%2B%25%2Bmodular.%2Caps%2C345&sr=8-5&th=1}{Ver en Amazon}
+    \item \textbf{Especificaciones:} Potencia de 850 Vatios continuos./ Certificación de eficiencia 80 Plus Gold./ Diseño 100\% modular.
+    \item \textbf{Precio Estimado:} 108\$
+    \item \textbf{Justificación:} Se utilizará para transformar la corriente alterna de la red eléctrica en corrientes continuas estables para alimentar todo el hardware. Su alta eficiencia reduce el desperdicio de energía en forma de calor, permitiendo que sus ventiladores giren más lento o se apaguen, lo que garantiza un entorno de trabajo ultra silencioso, algo crítico al momento de grabar o monitorear audio profesional.
+\end{itemize}
+
+\subsection{Chasis / Caja (Case)}
+
+\begin{itemize}
+    \item \textbf{Componentes:} DARKROCK EC2 Negro ATX 
+    \href{https://www.amazon.com/-/es/darkFlash-Full-Tower-Panor%C3%A1mico-Radiadores-DY470/dp/B0DHWRKXS6/ref=sr_1_12?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dib=eyJ2IjoiMSJ9.3a9blhtBS72yD0HI7mnKvffbOuOQ1d-LuYTr5fMU7IZHeqPkqCnKdvnX9fozpnnbGYMxKKv_jrpBJtUFIBWcbxgb7HhLrm1bb1mV3b7-jmlMv5tm93ua0Az_KRnCfGMMPtns6M4elOu6H3fQ6AzEK2XBsUHulg3pt_u9DsVyLWR4UGnKZFfuhYvXOsNdsNVU2UIosPj1QEUSwdFJ0N29PSVA53M6bQOfNk_C_lPsjv4.OMkAsaQOem0euyL1tmtpuv29TVCUvK5hxL-v22EB-G8&dib_tag=se&keywords=chasis%2Bpara%2Bpc%2B360mm&qid=1779563062&sr=8-12&th=1}{Ver en Amazon}
+    \item \textbf{Especificaciones:} Panel frontal de malla de alta permeabilidad./Aislamiento acústico integrado en los paneles laterales./ Filtros de polvo extraíbles y soporte para radiadores de 360 mm.
+    \item \textbf{Precio Estimado:} 155\$
+    \item \textbf{Justificación:} Se utilizará para alojar y proteger todo el hardware. Su diseño de malla optimiza el flujo de aire interno ( airflow ), lo que permite que los ventiladores giren más lento y operen de forma ultra silenciosa, algo indispensable para un entorno de producción de audio.
+\end{itemize}
+
+\section{Periféricos de Audio Especializados (Externos)}
+\subsection{Interfaz de Audio Externa}
+\begin{itemize}
+    \item \textbf{Componentes:} Behringer UMC404HD Audiophile 4x4
+    \href{https://www.amazon.com/-/es/Behringer-UMC404HD-Audiophile-preamplificadores-instrumentos/dp/B00TTX73YA/ref=sr_1_18?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3CA9UX2QWAQJP&dib=eyJ2IjoiMSJ9.P-4qeVd-HFO90mQ8U_r1evULTCS3vA2SVmMGuMeBT_kVXge70qRRk5-2sW-RIIchHBIDSbZlXzWiBsD6m-SC1_gOtcgjOBqqjpdjPGHkI1Ip_LmMmq6yA2KgCtjYLiU94k1efTSExjpyGtMD98tp4Vri68_h1iimfF6Ku3oBxisxMhBl9XfPerI-8bbrMi6UMFQdIRbCEJSUavJ20W04ZdWASbyKo6QS2AsjoH9r3kUr3ztcxeJQbuIn1SHmHMPfMHtmBsramV4Rh2ovGNxWY2lqiSToLfefTtEtJFtMXz4.wpYZXMS32AXZFasgAS1hclqx9u4-9SPi7Riekj6fkqg&dib_tag=se&keywords=interfaz+de+audio+profesional+24bits&qid=1779460202&sprefix=interfaz+de+audio+profesional+24bits+%2Caps%2C215&sr=8-18}{Ver en Amazon}
+    \item \textbf{Especificaciones:} Conversión de audio A/D y D/A (Analógico a Digital) de alta resolución a 24 bits/192 kHz./ Procesamiento DSP en tiempo real integrado (núcleos dedicados para complementos). /Conectividad USB 3 de ultra baja latencia.
+    \item \textbf{Precio Estimado:} 140\$
+    \item \textbf{Justificación:} Se utilizará para digitalizar señales analógicas y reconvertirlas en audio. Sus procesadores DSP integrados ejecutan los efectos dentro de la propia interfaz, liberando de carga de cómputo al CPU de la computadora y logrando una latencia imperceptible al grabar.
+\end{itemize}
+
+\subsection{Cable de conexión de la interfaz (USB-C o Thunderbolt)}
+\begin{itemize}
+    \item \textbf{Componentes:} FORE Interfaz MIDI USB Bluetooth Inalámbrica K1
+    \href{https://www.amazon.com/-/es/FORE-USB-OUT-MIDI-Convertidor/dp/B0FLXCH61M/ref=sr_1_8?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2MIQ355MNKXDH&dib=eyJ2IjoiMSJ9.f6XoakIu0Hh0BeAmeXOxUW-J0Gdk_Kp0A5ETQitKqczhLXM9tbmLwfxdx49XS6wmu0_-rLIn-umFdQQ2sYGWRMAVv5t_sbWwFqhzBhXL38Jf06rt5qCCsmhfXyVExSu6s12B6dkr-rDRv9_avZyNPyDs_lUPxx0b66dKX45kfr4Plti7tMzXSKVILj8JNi1xo3iNE1f4ZIuBrasKZ6jLxiXeVYtb5_0jkM6oOrgOft8.oXiUM8hj3t8-8I-2mFsOC3ffk72Ibkxi5oqHEm0p_-8&dib_tag=se&keywords=cable%2Bde%2Bconexi%C3%B3n%2Bde%2Bla%2Binterfaz&qid=1779460442&sprefix=cable%2Bde%2Bconexi%C3%B3n%2Bde%2Bla%2Binterfaz%2B%2Caps%2C136&sr=8-8&th=1}{Ver en Amazon}
+    \item \textbf{Especificaciones:} Velocidad de transferencia de datos de hasta 40 Gbps./ Conectores tipo USB-C reversibles en ambos extremos./ Soporte para entrega de energía de hasta 100W y trenzado resistente.
+    \item \textbf{Precio Estimado:} 30\$
+    \item \textbf{Justificación:} Se utilizará como el canal físico de comunicación entre la interfaz de audio y la computadora. Su altísimo ancho de banda garantiza que múltiples canales de audio de alta resolución se transmitan de forma síncrona y con latencia cero, evitando interferencias o pérdidas de paquetes de datos en el bus.
+\end{itemize}
+
+\section{Consumibles para el Ensamblaje}
+\subsection{Pasta térmica (para transferir el calor de la CPU al disipador)}
+\begin{itemize}
+    \item \textbf{Componentes:} ARCTIC MX-4 (45 g)
+    \href{https://www.amazon.com/-/es/ARCTIC-MX-4-rendimiento-procesadores-conductividad/dp/B07LDK4F5R/ref=sr_1_12?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2A5F4D55CVFN8&dib=eyJ2IjoiMSJ9.yJRYOUk790Vbt3Hn-RSjitQ8enYKo1yzg19Fh8XPVhGCjRuXTpqgPqsw1NWZ-a-LNehTSdTDUkYTqAyoSsD-N1asgg4SvSK6_Jxw-BVyCBpuOX60pmQX4Ia195Xv2YvACkMcjOAjWndQpl0ZUe_ZdMZlxefrwpFYlpfB9Ctc989Pi9lLiwdZ5QpkASzY5ay5vbkzDdz-5bEqMenO7CU4XOLP__9oXbyJY5fcgpH8VdQ.J4diBucdtqkK86QccvbOuesm1Us1yEt8YwdIDaxBtcM&dib_tag=se&keywords=pasta+termica&qid=1779563646&sprefix=pasta+termica+%2Caps%2C149&sr=8-12}{Ver en Amazon}
+    \item \textbf{Especificaciones:} Conductividad térmica de 12,8 W/mk, base de silicona no conductora de electricidad.
+    \item \textbf{Precio Estimado:} 20\$
+    \item \textbf{Justificación:} Se utilizará para eliminar las burbujas de aire microscópicas entre el i9-14900K y el disipador. Al maximizar el contacto físico directo, optimiza la transferencia de calor y evita que el procesador baje su rendimiento por sobrecalentamiento.
+\end{itemize}
+
+\section{Presupuesto detallado de componentes para la estación de audio profesional}
+
+\begin{tabular}{lccr}\\
+\hline
+\textbf{Componente} & \textbf{Cantidad} & \textbf{Precio U} & \textbf{Total} \\ \hline
+Cpu & 1 & 520 & 520 \\
+Placa base & 1 & 190 & 190 \\
+Memoria ram & 1 & 1012 & 1012 \\
+Disco duro & 1 & 224 & 224 \\
+GPU & 1 & 450 & 450 \\
+Cooler CPU & 1 & 100 & 100 \\
+PSU & 1 & 108 & 108 \\
+Chasis & 1 & 155 & 155 \\
+Interfaz de aud & 1 & 140 & 140 \\
+Cable/Conexion & 2 & 30 & 60 \\
+Pasta termica & 2 & 20 & 40 \\ \hline
+\textbf{Total neto} &  &  & \textbf{2999} \\ \hline
+\end{tabular}\\\\
+Precios consultados el 20 de mayo del 2026
+\end{table}
+
+\vspace{1cm} 
+En conclusión, el diseño de esta estación de trabajo demuestra que la optimización de un sistema de tiempo real crítico no depende únicamente de la potencia bruta, sino de la sincronización eficiente entre sus componentes. Al seleccionar una arquitectura balanceada con buses de alta velocidad, gestión avanzada de interrupciones y una jerarquía de almacenamiento de datos segmentada, se eliminan los cuellos de botella en los canales de Entrada/Salida. De este modo, se garantiza la estabilidad de los ciclos de reloj y el flujo de datos continuo que requiere el procesamiento de audio profesional.
+
+\end{document}
+ 
