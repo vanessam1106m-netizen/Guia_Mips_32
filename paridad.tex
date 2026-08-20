@@ -1,0 +1,153 @@
+ \documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2.5cm]{geometry} % Márgenes estándar
+\usepackage{amsmath}                
+\usepackage{graphicx}
+
+\begin{document}
+
+% =============================================================
+% PORTADA
+% =============================================================
+\begin{titlepage}
+    \begin{center}
+        \textbf{\large UNIVERSIDAD DE CARABOBO} \\
+        \textbf{\large FACULTAD DE CIENCIAS Y TECNOLOGÍA} \\
+        \textbf{\large DEPARTAMENTO DE COMPUTACIÓN} \\
+        \vspace*{0.5cm}
+       
+        \vspace*{6cm} % Espacio antes del título
+        
+        % Título del Trabajo
+        \textbf{\LARGE PRÁCTICA DE LABORATORIO N° 1} \\[0.4cm]
+        \textbf{\Large Evaluación de Paridad: Métodos Iterativo y Recursivo en MIPS32 } \\
+        
+        \vspace*{6.8cm} % Espacio antes de los autores
+        
+        % Sección de datos (Autores y Profesor)
+        \begin{flushright}
+            \begin{minipage}{0.5\linewidth}
+                \normalsize
+                \textbf{Autores:} \\
+                Genesis V. Cabello M. \\
+                \vspace*{0.3cm}
+                C.I:30.367.386\\
+                Maivet S. Pereira M.\\
+                \vspace*{0.3cm}
+                C.I: 30.814.708\\
+                \textbf{Profesor:} \\
+                \vspace*{0.3cm}
+                Jose Canache \\
+                \textbf{Asignatura:} \\
+                Arquitectura del Computador
+            \end{minipage}
+        \end{flushright}
+        
+        \vfill % Empuja la fecha hacia el extremo inferior
+        
+        \rule{\linewidth}{0.5mm} \\ % Línea divisoria inferior
+        \vspace*{0.2cm}
+        \normalsize Carabobo, Julio de 2026
+        
+    \end{center}
+\end{titlepage}
+
+% =============================================================
+% Inicio de la Investigación
+% =============================================================
+
+\newpage
+
+\textbf{\large Objetivo:}\\\\
+    Familiarizar al estudiante con la sintaxis del lenguaje ensamblador MIPS32 y su ejecución en el entorno MARS, resolviendo problemas clásicos de programación, prestando especial atención a la gestión de registros, llamadas a funciones, recursividad, estructuras de control, manejo de la pila y configuración/utilización del ambiente de trabajo.
+
+\section{Investigación Preliminar}
+
+\subsection{¿Cómo se implementa la recursividad en MIPS32? ¿Qué papel cumple la pila ($sp)?}
+    \textbf{Implementación de la recursividad:} En MIPS32, la recursividad se logra mediante la instrucción jal(Jump and Link), la cual realiza un salto hacia la etiqueta de la misma función, guardando automáticamente la dirección de la siguiente instrucción en el registro \$ra(Return Address).\\
+
+    \textbf{El papel de la pila ( \$sp):} Dado que cada llamada con jal sobreescribe el registro \$ra, si no se salvara este valor, el programa perdería la referencia de cómo regresar a la función que la llamada, entrando en un bucle infinito. El puntero de pila ( \$sp) nos permite reservar memoria en el Stack para almacenar (o "proteger") el registro \$ray los argumentos locales ( \$a0) de cada nivel de la recursión antes de hacer la nueva llamada. Al regresar, se restauran estos valores usando lwy se libera el espacio.\\
+
+\subsection{¿Qué riesgos de desbordamiento existen? ¿Cómo mitigarlos?}\\
+    \textbf{El riesgo (Stack Overflow):} Cada llamada recursiva consume una cantidad fija de memoria en la pila (en nuestro código, 8 bytes). Si el usuario ingresa un número $n$ extremadamente grande, la pila crecerá tanto que superará los límites físicos de la memoria asignada por el sistema operativo o el simulador, provocando un desbordamiento de pila ( Stack Overflow ) y colgando el programa.\\\\
+    
+    \textbf{Mitigación:}\\
+    \textbf{1.}Validación de entrada: Limitar el valor máximo de$n$mediante software antes de llamar a la función.\\\\
+    \textbf{2.}Cambio de paradigma: Si el algoritmo requiere procesar volúmenes de datos masivos, la mejor mitigación es transformar el código recursivo en uno iterativo , ya que este último no consume memoria de la pila.
+    
+\subsection{¿Qué diferencias encontraste entre una implementación iterativa y una recursiva en cuanto al uso de memoria y registros?}\\
+    \begin{tabular}{lccr}\\
+    \hline
+    \textbf{Característica} & \textbf{Enfoque } & \textbf{Enfoque } \\
+    \textbf{} & \textbf{Recursivo} & \textbf{Iterativo} \\
+    \hline\\
+    Uso de la  & Alto (Reserva  & Nulo (No   \\
+    Pila (\texttt{\$ap}) & espacio por llamada) & modificado el \texttt{\$sp}) \\\\
+    Consumo de  & Complejidad  & Complejidad\\
+    Memoria & espacial $O(n)$ & espacial $O(1)$\\\\
+    Riesgo de  & Sí (Con valores  & No existe \\
+    \textit{Stack overflow} & de $n$ muy altos) & riesgo\\\\
+    Uso de Registros & Depende de & Usa registros \\
+    criticos & \texttt{\$ra} y \texttt{\$a0} & temporales (\texttt{\$t0}, \texttt{\$t1})\\\\
+    Eficiencia & Más lento  & Más rápido \\
+    Temporal & (Accesos frecuentes a RAM) & (Operaciones directas en CPU)\\\\
+    \hline
+    \end{tabular}\\
+    \end{table}
+    
+
+\subsection{¿Qué diferencias encontraste entre los ejemplos académicos del libro y un ejercicio completo y operativo en MIPS32?}\\
+    Los ejemplos académicos de los libros suelen mostrar únicamente el fragmento aislado de la función (la lógica pura), omitiendo las directivas de asignación de memoria o el manejo de entradas y salidas.Un ejercicio completo y operativo (como los que ejecutamos en MARS) requiere una estructura formal con directivas de datos ( .data), código ( .text), la declaración global del punto de entrada ( .globl main), la gestión de llamadas al sistema ( Syscalls ) para interactuar con la consola, y una finalización limpia del programa ( Syscall 10) para evitar que el procesador intente seguir ejecutando líneas de código vacías en la memoria.
+
+\subsection{Tutorial de la ejecución paso a paso en MARS}
+    Para evaluar el comportamiento interno del procesador MIPS32 y el flujo de los algoritmos desarrollados, se realizó una depuración paso a paso (\textit{Single-Step}) utilizando el simulador MARS. A continuación, se detallan las fases clave del ciclo de ejecución:
+    
+    \begin{enumerate}
+        \item \textbf{Fase de Ensamblado e Inicialización:} 
+        Al cargar el archivo de código fuente (\texttt{.asm}) y presionar el ícono de la herramienta \textit{Assemble}, el entorno traduce las instrucciones a lenguaje máquina y activa la pestaña \textit{Execute}. El contador de programa (\texttt{PC}) se inicializa en la dirección base del \texttt{main} (\texttt{0x00400000}) y los registros se encuentran en su estado por defecto.
+    
+    \begin{figure}[h]
+            \centering
+            \includegraphics[width=1.0\linewidth]{Fase_1.png}
+            \caption{fase de inicializacion}
+            \label{fig:placeholder}
+        \end{figure}
+    
+        \item \textbf{Fase de Entrada de Datos (Syscall):}
+        Utilizando la tecla \texttt{F7} para avanzar instrucción por instrucción, el procesador ejecuta las llamadas al sistema (\textit{Syscalls}) para imprimir el mensaje de solicitud en la consola \textit{Run I/O} y detenerse a esperar el ingreso del número por parte del usuario. Para este tutorial, se introdujo el valor $n = 3$, el cual se almacena temporalmente en el registro \texttt{\$v0} y luego se transfiere a un registro seguro.
+    
+        \begin{figure}[h]
+                \centering
+                \includegraphics[width=1.0\linewidth]{Fase_2.png}
+                \caption{Fase 2 entrada de datos}
+                \label{fig:placeholder}
+            \end{figure}
+            
+        \item \textbf{Fase Crítica: Comportamiento de la Pila (\$sp) en la Recursión:}
+        Al invocar la función \texttt{paridad\_recursiva} mediante la instrucción \texttt{jal}, se observa el núcleo de la práctica. Como $n = 3$ no cumple el caso base, el programa entra en la sección recursiva:
+        \begin{itemize}
+            \item El puntero de pila (\texttt{\$sp}) decrementa su valor en 8 bytes en cada llamada (\texttt{addi \$sp, \$sp, -8}), abriendo espacio en la memoria RAM.{Ocurrido el decremento, se ejecutan las instrucciones \texttt{sw} para respaldar la dirección de retorno (\texttt{\$ra}) y el argumento actual (\texttt{\$a0}).}
+        \end{itemize}
+        Este ciclo se repite sucesivamente decrementando $n$ hasta que alcanza el valor de cero ($n = 0$), momento en el cual la pila alcanza su tamaño máximo de ocupación.
+    
+       
+    
+        \item \textbf{Fase de Desenrollado y Retorno:}
+        Al activarse el caso base, el registro \texttt{\$v0} carga el valor de retorno inicial ($0$). A partir de aquí, cada pulsación de \texttt{F7} ejecuta instrucciones \texttt{lw} que recuperan los contextos previos de la pila y aumentan el \texttt{\$sp} de vuelta a su posición original (\texttt{addi \$sp, \$sp, 8}). Simultáneamente, se calcula la alternancia de paridad mediante la resta \texttt{sub \$v0, \$t0, \$v0}, ascendiendo por los niveles de la llamada hasta retornar al \texttt{main} con el resultado final de $1$.
+    
+      
+    \begin{figure}[h]
+            \centering
+            \includegraphics[width=1.0\linewidth]{Fase_4.png}
+            \caption{Enter Caption}
+            \label{fig:placeholder}
+        \end{figure}
+       
+    \end{enumerate}
+
+\subsection{Justificar la elección del enfoque (iterativo o recursivo) según eficiencia y claridad en MIPS}\\
+    Para este problema en particular (calcular la paridad), el enfoque iterativo es infinitamente superior .Eficiencia: El enfoque iterativo es mucho más rápido y óptimo. El recursivo gasta ciclos de reloj del procesador ejecutando instrucciones de acceso a memoria ( sw y lw) por cada decremento de $n$. En bajo nivel, acceder a la memoria RAM siempre es más lento que operar directamente con los registros del procesador.Claridad: Aunque a nivel matemático la definición recursiva es elegante, trasladarla a ensamblador MIPS32 se vuelve complejo y propenso a errores debido al manejo manual de la pila. El enfoque iterativo se traduce de forma limpia mediante un bucle convencional ( beqy j), haciéndolo más legible y seguro de mantener.
+
+\end{document}
